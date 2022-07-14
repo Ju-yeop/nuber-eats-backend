@@ -14,6 +14,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
 import { jwtMiddleware } from './jwt/jwt.middleware';
+import { Verification } from './users/entities/verification.entity';
 
 @Module({
   imports: [
@@ -47,7 +48,7 @@ import { jwtMiddleware } from './jwt/jwt.middleware';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: process.env.NODE_ENV !== 'prod', // 로그 표시 여부
-      entities: [User], //DB 지정
+      entities: [User, Verification], //DB 지정
     }),
     JwtModule.forRoot({
       privatekey: process.env.PRIVATE_KEY,
