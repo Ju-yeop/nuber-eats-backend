@@ -101,8 +101,9 @@ export class UserService {
       if (email) {
         user.email = email;
         user.verified = false;
+        await this.verification.delete({ user: { id: user.id } });
         const verification = await this.verification.save(
-          this.verification.create(user),
+          this.verification.create({ user }),
         );
         this.mailService.sendVerificationEmail(user.email, verification.code);
       }
@@ -132,6 +133,7 @@ export class UserService {
       }
       return { ok: false, error: 'Verification not found.' };
     } catch (error) {
+      console.log(error);
       return { ok: false, error: 'Could not verify email.' };
     }
   }
