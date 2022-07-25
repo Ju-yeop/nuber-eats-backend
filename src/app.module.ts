@@ -22,6 +22,10 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryRepository } from './restaurants/repositories/category.repository';
 import { TypeOrmExModule } from './Category/typeorm-ex.module';
+import { Dish } from './restaurants/entities/dish.entity';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/entities/order.entity';
+import { OrderItem } from './orders/entities/order-item.entity';
 
 @Module({
   imports: [
@@ -59,7 +63,15 @@ import { TypeOrmExModule } from './Category/typeorm-ex.module';
       synchronize: process.env.NODE_ENV !== 'prod',
       logging:
         process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'test', // 로그 표시 여부
-      entities: [User, Verification, Restaurant, Category], //DB 지정
+      entities: [
+        User,
+        Verification,
+        Restaurant,
+        Category,
+        Dish,
+        Order,
+        OrderItem,
+      ], //DB 지정
     }),
     TypeOrmExModule.forCustomRepository([CategoryRepository]),
     JwtModule.forRoot({
@@ -73,6 +85,7 @@ import { TypeOrmExModule } from './Category/typeorm-ex.module';
     UsersModule,
     RestaurantsModule,
     AuthModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [],
